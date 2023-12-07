@@ -1,0 +1,10 @@
+{"argv": [
+   "/usr/local/bin/ihaskell","kernel","{connection_file}"
+   , "--env-file", "/usr/local/lib/ihaskell/env"
+   , "--ghclib","/opt/ghc/9.4.7/lib/ghc-9.4.7/lib"
+   , "+RTS","-M3g","-N2","-RTS"
+  ]
+  , "display_name":"Haskell"
+  , "language":"haskell"
+}
+

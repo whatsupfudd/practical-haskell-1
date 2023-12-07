@@ -1,0 +1,37 @@
+<div style="width: 150em" class="overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+      GitHub TOP 100
+      <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+      A embellished presentation the top starred and/or forked repos of GitHub for the last 5 years.
+      </p>
+    </caption>
+    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+      <tr>
+        {% for colHead in columns %}
+        <th scope="col" class="px-6 py-3">{{ colHead }}</th>
+        {% endfor %}
+        <th style="width: 50em" scope="col" class="px-6">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rv in results %}
+        <tr>
+          <td scope="col" class="px-6 py-3">{{ rv.rank }}</td>
+          <td scope="col" class="px-6 py-3">{{ rv.section }}</td>
+          <td scope="col" class="px-6 py-3">{{ rv.repo }}</td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ rv.stars }}</td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ rv.forks }}</td>
+          <td scope="col" class="px-6 py-3">{{ rv.language }}</td>
+          <td>
+            <a href="{{ rv.url }}">{{ rv.repo }}</a>
+          </td>
+          <td scope="col" class="px-6 py-3">{{ rv.uname }}</td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ rv.issues }}</td>
+          <td scope="col" class="px-6 py-3">{{ rv.last_commit }}</td>
+          <td scope="col" class="px-6 py-3">{{ rv.description }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

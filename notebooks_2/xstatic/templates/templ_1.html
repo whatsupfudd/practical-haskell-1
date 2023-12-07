@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+      <title>{{ title }}</title>
+      <script src="https://unpkg.com/d3@7.8.5/dist/d3.min.js" cross-origin="anonymous" type="text/javascript"></script>
+
+    </head>
+    {# This is a comment. Comments are removed from the output. #}
+    <body>
+      <div class="container bg-gray-500 mx-auto p-4">
+        <h1 class="text-2xl text-red-900 font-bold mb-4">{{ title }}</h1>
+        <table class="min-w-full bg-orange-500 border border-gray-300">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider border-b">Name</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider border-b">Destination</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in navigation %}
+              <tr>
+                <td class="text-blue-800">{{ item.label }}</td>
+                <td class="text-green-600"><a href="{{ item.url }}">{{ item.label }}</td>
+              </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+        {{ docBody }}
+      </div>
+      <div id="d3 demo" class="flex p-5 justify-center">
+        <svg id="dataviz_area" height=200 width=450></svg>
+
+        <script>
+          var svg = d3.select("#dataviz_area")
+          var x = d3.scaleLinear()
+            .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
+            .range([0, 400]);       // This is the corresponding value I want in Pixel
+
+          // Show the axis that corresponds to this scale
+          svg.call(d3.axisBottom(x));
+
+          {% for shape in circles %}
+            svg.append("circle").attr("cx", x({{ shape.cx }}))
+              .attr("cy", {{ shape.cy }}).attr("r", {{ shape.radius}} )
+              .style("fill", "{{ shape.color }}");
+          {% endfor %}
+
+        </script>
+
+      </div>
+    </body>
+</html>

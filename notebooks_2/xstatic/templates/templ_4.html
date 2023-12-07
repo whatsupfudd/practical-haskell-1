@@ -1,0 +1,183 @@
+<html class="dark">
+    <head>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="xstatic/css/pack_1.css" rel="stylesheet">
+        <link href="xstatic/css/pack_2.css" rel="stylesheet">
+        <script src="https://unpkg.com/htmx.org@1.9.9/dist/htmx.min.js" crossorigin="anonymous" type="text/javascript"></script>
+        <script src="https://unpkg.com/htmx.org@1.9.9/dist/ext/ws.js" crossorigin="anonymous" type="text/javascript"></script>
+        <script src="https://unpkg.com/d3@7.8.5/dist/d3.min.js" cross-origin="anonymous" type="text/javascript"></script>
+        <title>Intro Demo</title>
+    </head>
+    <body class="antialiased text-slate-500 dark:text-slate-400 dark:bg-slate-900">
+        <div style="color: red; background: rgb(115 120 128)" class="lg:col-span-5 xl:col-span-6 flex flex-col">
+            <div class="relative z-10 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 overflow-hidden my-auto xl:mt-18 dark:bg-slate-800">
+                <div class="container mx-auto p-4">
+                    <h1 class="text-2xl font-bold mb-4">Simple demo: tailwind, htmx, websocket, D3-js, Three-js.</h1>
+                    <section>
+                        <header class="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+                            <div class="flex items-center justify-between">
+                                <h2 class="font-semibold text-slate-900">Projects</h2>
+                                <a href="javascript:void()" class="hover:bg-blue-400 group fl)ex items-center rounded-md bg-blue-500 text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm">
+                                    <svg width="20" height="20" fill="currentColor" class="mr-2">
+                                        <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z"/>
+                                    </svg>
+                                    New
+                                </a>
+                            </div>
+                            <div class="group relative">
+                                <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-blue-500">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+                                </svg>
+                                <input class="form-control focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-white placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm" type="search" name="needle" placeholder="Filter project.." hx-post="/xsearch" hx-trigger="keyup changed delay:500ms" hx-target="#search-results" hx-indicator=".htmx-indicator">
+                            </div>
+                            <div class="bg-white sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+                                <span class="htmx-indicator">
+                                    <img src="xstatic/imgs/barsvg">Searching...
+                                </span>
+                            </div>
+                        </header>
+                        <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 text-sm leading-6 dark:bg-slate-900/40 dark:ring-1 dark:ring-white/5" id="search-results"></ul>
+                        <div hx-ext="ws" ws-connect="/stream" class="bg-white sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+                            <form id="form" ws-send="">
+                                <input type="text" name="ws-message">
+                            </form>
+                            <table class="flex flex-col space-y-2">
+                                <thead>
+                                    <tr>
+                                        <th>Reply</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="notifications"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="d3 demo" class="flex p-5 justify-center">
+          <svg id="dataviz_area" height=200 width=450 >
+          </svg>
+        </div>
+        <script>
+          var svg = d3.select("#dataviz_area")
+          var x = d3.scaleLinear()
+            .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
+            .range([0, 400]);       // This is the corresponding value I want in Pixel
+
+          // Show the axis that corresponds to this scale
+          svg.call(d3.axisBottom(x));
+
+          svg.append("circle").attr("cx", x(20))
+            .attr("cy", 90).attr("r", 40)
+            .style("fill", "green");
+          svg.append("circle").attr("cx", x(50))
+            .attr("cy", 90).attr("r", 45)
+            .style("fill", "red");
+          svg.append("circle").attr("cx", x(85))
+            .attr("cy", 90).attr("r", 50)
+            .style("fill", "blue");
+
+        </script>
+        <div id="youtubeEmbedded">
+          <div id="container"></div>
+          <div id="blocker"></div>
+        </div>
+        <script type="importmap"> {
+          "imports": {
+            "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+            }
+          }
+        </script>
+        <script type="module">
+          import * as THREE from 'three';
+          import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+          import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+          import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+
+      var camera, scene, renderer;
+			var controls;
+			var Element = function ( id, x, y, z, ry ) {
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '360px';
+				div.style.backgroundColor = '#000';
+				var iframe = document.createElement( 'iframe' );
+				iframe.style.width = '480px';
+				iframe.style.height = '360px';
+				iframe.style.border = '0px';
+				iframe.src = [ 'https://www.youtube.com/embed/', id, '?rel=0&autoplay=1&mute=1' ].join( '' );
+				div.appendChild( iframe );
+				var object = new CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.y = ry;
+				return object;
+      };
+
+      init();
+			animate();
+
+			function init() {
+
+				var container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.set( 500, 350, 750 );
+
+				scene = new THREE.Scene();
+
+				renderer = new CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				var group = new THREE.Group();
+				group.add( new Element( 'w7i4amO_zaE', 0, 0, 240, 0 ) );
+				group.add( new Element( 'YkOSUVzOAA4', 240, 0, 0, Math.PI / 2 ) );
+				group.add( new Element( 'wyABTfR9UTU', 0, 0, - 240, Math.PI ) );
+				group.add( new Element( 'Qa8IfEeBJqk', - 240, 0, 0, - Math.PI / 2 ) );
+				scene.add( group );
+
+				// controls = new TrackballControls( camera, renderer.domElement );
+				controls = new OrbitControls( camera, renderer.domElement );
+				controls.autoRotate = true;
+				controls.autoRotateSpeed = 4;
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				// Block iframe events when dragging camera
+
+				var blocker = document.getElementById( 'blocker' );
+				blocker.style.display = 'none';
+
+				document.addEventListener( 'mousedown', function () {
+
+					blocker.style.display = '';
+
+				} );
+				document.addEventListener( 'mouseup', function () {
+
+					blocker.style.display = 'none';
+
+				} );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				controls.update();
+				renderer.render( scene, camera );
+
+			}
+        </script>
+    </body>
+</html>
+

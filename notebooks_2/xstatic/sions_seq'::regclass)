@@ -1,0 +1,64 @@
+                                       Table "rnacen.rnc_accessions"
+     Column     |          Type           | Collation | Nullable |                 Default                 
+----------------+-------------------------+-----------+----------+-----------------------------------------
+ id             | bigint                  |           |          | nextval('rnc_accessions_seq'::regclass)
+ accession      | character varying(200)  |           | not null | 
+ parent_ac      | character varying(200)  |           |          | 
+ seq_version    | bigint                  |           |          | 
+ feature_start  | bigint                  |           |          | 
+ feature_end    | bigint                  |           |          | 
+ feature_name   | character varying(80)   |           |          | 
+ ordinal        | bigint                  |           |          | 
+ division       | character varying(6)    |           |          | 
+ keywords       | character varying(200)  |           |          | 
+ description    | character varying(500)  |           |          | 
+ species        | character varying(300)  |           |          | 
+ organelle      | character varying(200)  |           |          | 
+ classification | character varying(1000) |           |          | 
+ project        | character varying(100)  |           |          | 
+ is_composite   | character varying(2)    |           |          | 
+ non_coding_id  | character varying(200)  |           |          | 
+ database       | character varying(40)   |           |          | 
+ external_id    | character varying(300)  |           |          | 
+ optional_id    | character varying(200)  |           |          | 
+ common_name    | character varying(200)  |           |          | 
+ allele         | character varying(100)  |           |          | 
+ anticodon      | character varying(200)  |           |          | 
+ chromosome     | character varying(200)  |           |          | 
+ experiment     | text                    |           |          | 
+ function       | character varying(4000) |           |          | 
+ gene           | character varying(200)  |           |          | 
+ gene_synonym   | character varying(800)  |           |          | 
+ inference      | character varying(600)  |           |          | 
+ locus_tag      | character varying(100)  |           |          | 
+ map            | character varying(400)  |           |          | 
+ mol_type       | character varying(100)  |           |          | 
+ ncrna_class    | character varying(100)  |           |          | 
+ note           | text                    |           |          | 
+ old_locus_tag  | character varying(200)  |           |          | 
+ operon         | character varying(100)  |           |          | 
+ product        | character varying(600)  |           |          | 
+ pseudogene     | character varying(100)  |           |          | 
+ standard_name  | character varying(200)  |           |          | 
+ db_xref        | text                    |           |          | 
+ rna_type       | character varying(15)   |           |          | 
+Indexes:
+    "rnc_accessions_pkey" PRIMARY KEY, btree (accession)
+    "rnc_accessions$database" btree (database)
+    "rnc_accessions$db_xref" gin (db_xref gin_trgm_ops)
+    "rnc_accessions$external_id" btree (external_id)
+    "rnc_accessions$feature_name" btree (feature_name)
+    "rnc_accessions$is_composite" btree (is_composite)
+    "rnc_accessions$locus_tag" btree (locus_tag)
+    "rnc_accessions$optional_id" btree (optional_id)
+    "rnc_accessions$parent_ac" btree (parent_ac)
+    "rnc_accessions$species" btree (species)
+    "rnc_accessions_ncrna_class_index" btree (ncrna_class)
+Foreign-key constraints:
+    "rnc_accessions_rna_type_fkey" FOREIGN KEY (rna_type) REFERENCES ontology_terms(ontology_term_id)
+Referenced by:
+    TABLE "rnc_accession_sequence_region" CONSTRAINT "rnc_accession_sequence_region_accession_fkey" FOREIGN KEY (accession) REFERENCES rnc_accessions(accession)
+    TABLE "rnc_modifications" CONSTRAINT "rnc_modifications_rnc_accessions__fk" FOREIGN KEY (accession) REFERENCES rnc_accessions(accession)
+    TABLE "rnc_related_sequences" CONSTRAINT "rnc_related_sequences_source_accession_fkey" FOREIGN KEY (source_accession) REFERENCES rnc_accessions(accession)
+    TABLE "rnc_sequence_features" CONSTRAINT "rnc_sequence_features_accession_fkey" FOREIGN KEY (accession) REFERENCES rnc_accessions(accession)
+

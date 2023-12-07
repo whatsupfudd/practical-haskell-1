@@ -1,0 +1,60 @@
+resolver: lts-21.17
+
+flags: {}
+packages:
+    - ./ihaskell-display/ihaskell-aeson
+    - ./ihaskell-display/ihaskell-blaze
+    - ./ihaskell-display/ihaskell-charts
+    - ./ihaskell-display/ihaskell-diagrams
+    - ./ihaskell-display/ihaskell-gnuplot
+    - ./ihaskell-display/ihaskell-graphviz
+    - ./ihaskell-display/ihaskell-hatex
+    - ./ihaskell-display/ihaskell-juicypixels
+    - ./ihaskell-display/ihaskell-magic
+    - ./ihaskell-display/ihaskell-plot
+    - ./ihaskell-display/ihaskell-widgets
+
+extra-deps:
+- Chart-cairo-1.9.3
+- diagrams-cairo-1.4.2.1
+- cairo-0.13.10.0
+- pango-0.13.10.0
+- glib-0.13.10.0
+- plot-0.2.3.11
+- statestack-0.3.1.1
+- ginger-0.10.5.2
+- servant-websockets-2.0.0
+- servant-auth-server-0.4.8.0
+
+ghc-options:
+  # Eventually we want "$locals": -Wall -Wpartial-fields -Werror
+  # ghc-parser: -Wall -Wpartial-fields -Werror
+  # ihaskell: -Wall -Wpartial-fields -Werror
+  # ihaskell-widgets: -Wall -Wpartial-fields -Werror
+
+system-ghc: true
+
+nix:
+  packages:
+    - blas
+    - cairo
+    - file
+    - fribidi
+    - gcc
+    - gfortran.cc.lib
+    - libdatrie
+    - liblapack
+    - libselinux
+    - libsepol
+    - libsodium # Needed by zeromq
+    - libthai
+    - ncurses
+    - pango
+    - pkg-config
+    - pcre
+    - pcre2
+    - pkgconfig
+    - util-linux
+    - xorg.libXdmcp
+    - zeromq
+    - zlib

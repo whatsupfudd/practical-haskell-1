@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]; then
+  echo "args: project's cabal file"
+  exit -10
+fi
+
+PROJECT_PACKAGES=$(stack path --local-pkg-db)
+SNAPSHOT_PACKAGES=$(stack path --snapshot-pkg-db)
+
+# echo "runhaskell Setup.hs configure --package-db=$PROJECT_PACKAGES --package-db=$SNAPSHOT_PACKAGES --package-db=$IHASKELL_PACKAGES --prefix=$IHASKELL_PREFIX --cabal $1"
+
+stack build --only-dependencies
+
+runhaskell Setup.hs configure \
+  --package-db=$PROJECT_PACKAGES \
+  --package-db=$SNAPSHOT_PACKAGES \
+  --package-db=$IHASKELL_PACKAGES \
+  --prefix=$IHASKELL_PREFIX \
+  --cabal "$1"
+
+if [[ $? == 1 ]]; then
+  echo "configure failed, stopping."
+  exit -1
+fi
+
+runhaskell Setup.hs build
+if [[ $? == 1 ]]; then
+  echo "build failed, stopping."
+  exit -2
+fi
+
+runhaskell Setup.hs install
+

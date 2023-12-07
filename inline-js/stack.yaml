@@ -1,0 +1,6 @@
+resolver: lts-21.17
+packages:
+  - inline-js
+  - inline-js-core
+  - inline-js-examples
+  - inline-js-tests
