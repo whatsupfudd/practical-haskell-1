@@ -32,7 +32,7 @@ COPY ghc-parser ghc-parser
 COPY inline-js inline-js
 COPY ihaskell-display ihaskell-display
 COPY servant-errors servant-errors
-RUN stack build ihaskell --only-snapshot
+RUN stack -j1 build ihaskell --only-snapshot
 
 
 # Build IHaskell itself.
