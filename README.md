@@ -20,3 +20,5 @@ Full Stack Deep Dive: What the deal with Haskell?
 </div>
 </div>
 </div>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hugodro/fudd-jhaskell/HEAD?urlpath=lab/tree/notebooks/PracticalHaskell.ipynb)
