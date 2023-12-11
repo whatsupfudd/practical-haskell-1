@@ -124,6 +124,7 @@ library
                        , servant-auth-server
                        , servant-multipart
                        , servant-errors >= 0.1.7.1
+                       , servant-client
                        , case-insensitive
                        , lens
                        , jose

@@ -12,6 +12,8 @@ SNAPSHOT_PACKAGES=$(stack path --snapshot-pkg-db)
 
 stack build --only-dependencies
 
+export PATH=$PATH:`stack path --compiler-bin`
+
 runhaskell Setup.hs configure \
   --package-db=$PROJECT_PACKAGES \
   --package-db=$SNAPSHOT_PACKAGES \
@@ -24,11 +26,11 @@ if [[ $? == 1 ]]; then
   exit -1
 fi
 
-runhaskell Setup.hs build
+stack runhaskell -- Setup.hs build
 if [[ $? == 1 ]]; then
   echo "build failed, stopping."
   exit -2
 fi
 
-runhaskell Setup.hs install
+stack runhaskell -- Setup.hs install
 
