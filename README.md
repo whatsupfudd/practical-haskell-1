@@ -21,4 +21,42 @@ Full Stack Deep Dive: What the deal with Haskell?
 </div>
 </div>
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/whatsupfudd/binder-practicahl/HEAD?urlpath=/lab/tree/notebooks/PracticalHaskell.ipynb)
+<p>
+To run the introduction, use <i>docker compose</i> with the following file:
+</p>
+<blockquote>
+services:
+  nginx:
+    restart: always
+    image: whatsupfudd/jupytell:1.1
+    ports:
+      - "9980:80"
+      - "9443:443"
+    volumes:
+      - "/usr/share/nginx/html"
+      - "/etc/nginx/certs"
+    networks:
+      - proxies
+
+  jupyter:
+    restart: always
+    image: whatsupfudd/intro1:1.3
+    networks:
+      - proxies
+
+networks:
+  proxies:
+</blockquote>
+
+<p>
+Then using your browser, access the host you're running the docker containers on using port 9980:
+<i>http://&lt;host&gt;:9980/lab.
+
+Use password <i>fuddfudd</i> to connect.
+The two services created in the introduction will be accessible at:
+</p>
+<ul>
+<li>8181: /demo1</li>
+<li>8180: /demo2</li>
+</ul>
+
