@@ -37,7 +37,9 @@ services:
       - "/etc/nginx/certs"
     networks:
       - proxies
-
+</pre>
+<br />
+<pre>
   jupyter:
     restart: always
     image: whatsupfudd/intro1:1.3
