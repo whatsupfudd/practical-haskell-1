@@ -9,7 +9,7 @@ Full Stack Deep Dive: What the deal with Haskell?
 <div class="float-left rounded pt-4" style="padding: 5px 10px 0px 0px;"><img class="rounded" src="https://www.haskell.org/img/haskell-logo.svg" width="200"></div>
 <p>is one of these languages that most senior developers have heard mysterious tales about. But as most stuff of legends, few people have had practical experience with. That's unfortunate as by today's state of technology having Haskell experience should be a standard practice for full-stack developers and CTOs.
 </p>
-<div class="float-right rounded"><img class="rounded-full shadow-md shadow-gray-700" style="margin: 0px 10px 0px 10px;" src="xstatic/img/lib_1.png" width="300" height="400"></div>
+<div class="float-right rounded"><img class="rounded-full shadow-md shadow-gray-700" style="margin: 0px 10px 0px 10px;" src="notebooks_2/xstatic/img/lib_1.png" width="300" height="400"></div>
 <div><p>I write this Jupyter notebook to address that issue while trying to take a little of your time as possible.</p>
 <p>Why? I've come to realize that Haskell is the best tool I've used to reach the Zen of programming, the most likely to give me balance between theory and practice, quick prototyping and long-term software production, time-tested approaches and innovative techniques. That's not a conclusion I've jumped to; I have over 40 years of software development under my belt, during which I've worked with many many programming ecosystems in many many kind of software development projects with many many types of people. I've started using Haskell about 10 years ago, I slowly integrated its ecosystem into my normal work setup and especially over the last 5 years I've seen it mature to become an extremely powerful tool for today's requirements.
 </p>
@@ -42,9 +42,8 @@ services:
     image: whatsupfudd/intro1:1.3
     networks:
       - proxies
-
 networks:
-	proxies:
+  proxies:
 </pre>
 
 <p>
