@@ -22,7 +22,7 @@ Full Stack Deep Dive: What the deal with Haskell?
 </div>
 
 <p>
-To run the introduction, use <i>docker compose</i> with the following file:
+To run the introduction, use <i>docker compose</i> with the following file (be careful, the README rendering may take away some required tabbing):
 </p>
 <pre>
 services:
@@ -37,9 +37,6 @@ services:
       - "/etc/nginx/certs"
     networks:
       - proxies
-</pre>
-<br />
-<pre>
   jupyter:
     restart: always
     image: whatsupfudd/intro1:1.3
@@ -47,7 +44,7 @@ services:
       - proxies
 
 networks:
-  proxies:
+	proxies:
 </pre>
 
 <p>
