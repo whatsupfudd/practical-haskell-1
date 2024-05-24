@@ -24,7 +24,7 @@ Full Stack Deep Dive: What the deal with Haskell?
 <p>
 To run the introduction, use <i>docker compose</i> with the following file:
 </p>
-<code>
+<pre>
 services:
   nginx:
     restart: always
@@ -46,7 +46,7 @@ services:
 
 networks:
   proxies:
-</code>
+</pre>
 
 <p>
 Then using your browser, access the host you're running the docker containers on using port 9980:
