@@ -111,7 +111,7 @@ RUN apt update \
     && apt install -y python3-pip \
     && rm -rf /var/lib/apt/lists/*
 RUN pip3 install -U pip \
-    && pip3 install -U jupyterlab notebook
+    && pip3 install -U jupyterlab notebook jupyter-server-proxy
 
 # Create runtime user
 ENV NB_USER jovyan
@@ -169,8 +169,12 @@ RUN jupyter notebook --generate-config
 COPY --chown=${NB_UID} notebooks_2 /home/${NB_USER}/src/notebooks
 # Why didn't the ihaskell install worked?
 COPY --chown=${NB_UID} docker_kernel.json /home/${NB_USER}/.local/share/jupyter/kernels/haskell/kernel.json
+COPY --chown=${NB_UID} DockerSetup/jupyter_server_config.py /home/${NB_USER}/.jupyter/jupyter_server_config.py
+COPY --chown=${NB_UID} DockerSetup/jupyter_server_config.json /home/${NB_USER}/.jupyter/jupyter_server_config.json
+
 USER 0
 RUN chmod 755 /root
 USER ${NB_UID}
 
-CMD ["jupyter-lab", "notebooks", "--ip", "0.0.0.0", "--no-browser" ]
+EXPOSE 8888 8181 8080
+CMD ["jupyter-lab", "notebooks", "--ip", "0.0.0.0", "--no-browser", "--debug" ]

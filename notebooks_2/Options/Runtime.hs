@@ -1,6 +1,6 @@
 -- Create some Runtime parameters for neater main logic.
 
-module Options.Runtime (defaultRun, RunOptions (..), WebServerOptions (..)) where
+module Options.Runtime (RunOptions (..), WebServerOptions (..)) where
 
 import Data.Text (Text)
 
@@ -19,15 +19,3 @@ data RunOptions = RunOptions {
     , corsPolicy :: Maybe CorsConfig
   }
   deriving (Show)
-
-defaultRun :: RunOptions
-defaultRun =
-  RunOptions {
-    debug = 0
-    , webServer = WebServerOptions {
-        port = 8181
-        , host = "localhost"
-      }
-    , jwkConfFile = Nothing
-    , corsPolicy = Nothing
-  }

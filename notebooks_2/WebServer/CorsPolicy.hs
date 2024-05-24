@@ -32,7 +32,7 @@ data CorsConfig = CorsConfig {
 
 
 defaultCorsPolicy = CorsConfig {
-   allowedOrigins = [ "http://localhost", "http://localhost:7885" ]
+   allowedOrigins = [ "http://localhost", "http://localhost:8080" ]
   , publicPrefixes = [ "inlogin", "site", "/" ]
   , maxAge = Nothing
   }

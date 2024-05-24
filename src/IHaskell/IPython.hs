@@ -96,7 +96,7 @@ ensure getDir = do
 ihaskellDir :: SH.Sh FilePath
 ihaskellDir = do
   home <- maybe (error "$HOME not defined.") SH.fromText <$> SH.get_env "HOME"
-  putStrLn $ "@[ihaskellDir] home: " <> home <> "."
+  -- putStrLn $ "@[ihaskellDir] home: " <> home <> "."
   fp <$> ensure (return (home SH.</> (".ihaskell" :: SH.FilePath)))
 
 getIHaskellDir :: IO String
